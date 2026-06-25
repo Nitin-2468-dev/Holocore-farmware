@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "views": 16,
+    "rows": 4,
+    "cols": 4,
+    "view_width": 512,
+    "view_height": 512,
+    "camera": {
+        "spread": 1.0,
+        "focus_plane": 0.0,
+        "fov": 90.0
+    }
+}
