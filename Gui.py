@@ -3,6 +3,7 @@ import pprint as pp
 from PIL import Image
 import numpy as np
 import math
+import moderngl_window as mglw
 
 
 
@@ -108,6 +109,8 @@ class FileDialog:
         # self.viewer.load(self.filename)
         self.renderer.load(self.filename)
 
+        dpg.configure_item("view_slider", show=True)
+
 
 # ---------------- Main GUI ----------------
 
@@ -126,14 +129,14 @@ class Gui:
         self.renderer = self.Renderer()
         self.dialog = FileDialog(self.renderer)
 
-        with dpg.window(label="Controls"):
+        with dpg.window(label="Controls",tag="view_slider", show=False):
 
             dpg.add_slider_int(
                 label="Current View",
                 min_value=0,
                 max_value=15,
                 default_value=0,
-                callback=self.slider_callback
+                callback=self.slider_callback,
             )
 
         dpg.setup_dearpygui()
@@ -177,8 +180,16 @@ class Gui:
             data = output.astype(np.float32) / 255.0
             data = data.flatten().tolist()
 
+            # Test().run()
             return data
+        
 
+class Test(mglw.WindowConfig):
+    gl_version = (3, 3)
 
+    def on_render(self, time: float, frametime: float):
+        self.ctx.clear(1.0, 0.0, 0.0, 0.0)
+
+Test.run()
 
 Gui()
